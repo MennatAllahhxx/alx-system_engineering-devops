@@ -1,2 +1,2 @@
 #!/bin/bash
-cut -b 1 | echo $ | tr -d ' ' 
+cut -c 1 | echo $ | tr -d ' ' 
