@@ -1,22 +1,18 @@
 #!/usr/bin/env bash
 # World wide web
 
-dig_func () {
-    domain="$1"
-    subdomain="$2"
-    record=$(dig "$subdomain"."$domain" | awk '/ANSWER SECTION/ {print $4}')
-    ip=$(dig "$subdomain"."$domain" | awk '/ANSWER SECTION/ {print $5}')
-    echo "The subdomain $subdomain is a $record record and points to $ip"
-}
-
 if [ $# -eq 2 ]; then
     domain="$1"
     subdomain="$2"
-    dig_func "$domain" "$subdomain"
+    record=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $4}')
+    ip=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $5}')
+    echo "The subdomain $subdomain is a $record record and points to $ip"
 else
     domain="$1"
     subdomains=('www' 'lb-01' 'web-01' 'web-02')
-    for subdomain in "${subdomains[@]}"; do
-        dig_func "$domain" "$subdomain"
+    for subdomain in ${subdomains[@]}; do
+        record=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $4}')
+        ip=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $5}')
+        echo "The subdomain $subdomain is a $record record and points to $ip"
     done
 fi
