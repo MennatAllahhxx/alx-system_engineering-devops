@@ -7,16 +7,14 @@ dig_func () {
     ip=$(dig "$subdomain"."$domain" | awk '/ANSWER SECTION/ {print $5}')
     echo "The subdomain $subdomain is a $record record and points to $ip"
 }
-if [ $# -eq 2 ]
-then
+if [ $# -eq 2 ]; then
     domain="$1"
     subdomain="$2"
     dig_func "$domain" "$subdomain"
 else
     domain="$1"
     subdomains=('www' 'lb-01' 'web-01' 'web-02')
-    for subdomain in "${subdomains[@]}"
-    do
+    for subdomain in "${subdomains[@]}"; do
         dig_func "$domain" "$subdomain"
     done
 fi
