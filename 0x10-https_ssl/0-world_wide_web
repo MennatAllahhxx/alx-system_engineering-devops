@@ -1,23 +1,18 @@
 #!/usr/bin/env bash
-#When passing domain and subdomain parameters, display information for the specified subdomain
+# World wide web
 
-domain="$1"
-sub_domain="$2"
-
-domain_info() {
-    local domain="$2"
-    local sub_domain="$1"
-	    record=$(dig "$sub_domain.$domain" | grep -A1 'ANSWER SECTION:')
-	    type=$(echo -n "$record" | awk 'NR==2{print $4}')
-	    ip=$(echo -n "$record" | awk 'NR==2{print $5}')
-	    echo "The subdomain $sub_domain is a $type record and points to $ip"
-	    }
-
-if [ -z "$sub_domain" ]; then
-	domain_info "www" "$domain"
-	domain_info "lb-01" "$domain"
-	domain_info "web-01" "$domain"
-	domain_info "web-02" "$domain"
+if [ $# -eq 2 ]; then
+    domain=$1
+    subdomain=$2
+    record=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $4}')
+    ip=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $5}')
+    echo "The subdomain $subdomain is a $record record and points to $ip"
 else
-	domain_info "$sub_domain" "$domain"
+    domain=$1
+    subdomains=('www' 'lb-01' 'web-01' 'web-02')
+    for subdomain in ${subdomains[@]}; do
+        record=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $4}')
+        ip=$(dig $subdomain.$domain | awk '/ANSWER SECTION/ {print $5}')
+        echo "The subdomain $subdomain is a $record record and points to $ip"
+    done
 fi
