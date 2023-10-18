@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # a Bash script that configures the container to fit the above requirements
-
-chmod a+wrx /etc/nginx/nginx.conf
 sudo sed -i '1s/.*/user nginx;/' /etc/nginx/nginx.conf
 sudo sed -i 's/80/8080/g' /etc/nginx/sites-available/default
 pkill apache2
-sudo -u nginx service nginx restart
+chmod a+wrx /etc/nginx/nginx.conf | sudo -u nginx service nginx restart
