@@ -28,7 +28,7 @@ def emp_info():
             tasks.append(task.get('title'))
             num_com_tasks += 1
 
-    print("({}/{})".format(num_com_tasks, num_tasks))
+    print("({}/{}):".format(num_com_tasks, num_tasks))
 
     for task in tasks:
         print("\t {}".format(task))
