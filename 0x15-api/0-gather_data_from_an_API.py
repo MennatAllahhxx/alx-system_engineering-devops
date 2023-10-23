@@ -1,18 +1,18 @@
 #!/usr/bin/python3
 """0-gather_data_from_an_API module"""
 import requests
-from sys import argv
+import sys
 
 
 def emp_info():
     """for a given ID, returns information about progress"""
     api_url = "https://jsonplaceholder.typicode.com/"
-    usr_id = argv[1]
+    usr_id = sys.argv[1]
     response = requests.get(api_url + 'users/' + usr_id)
     data = response.json()
 
     print("Employee {} is done with tasks".format(
-        data.get("name")), end="")
+        data.get('name')), end="")
 
     response = requests.get(api_url + 'users/' + usr_id + '/todos')
     data = response.json()
@@ -23,8 +23,8 @@ def emp_info():
 
     for task in data:
         num_tasks += 1
-        if task.get("completed") is True:
-            tasks.append(task.get("title"))
+        if task.get('completed') is True:
+            tasks.append(task.get('title'))
             num_com_tasks += 1
 
     print("({}/{})".format(num_com_tasks, num_tasks))
