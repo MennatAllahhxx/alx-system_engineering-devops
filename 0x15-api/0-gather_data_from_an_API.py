@@ -7,15 +7,15 @@ import sys
 
 def emp_info():
     """for a given ID, returns information about progress"""
-    api_url = "https://jsonplaceholder.typicode.com/"
+    api_url = "https://jsonplaceholder.typicode.com/users"
     usr_id = sys.argv[1]
-    response = requests.get(api_url + 'users/' + usr_id)
+    response = requests.get(f'{api_url}/{usr_id}')
     data = response.json()
 
     print("Employee {} is done with tasks".format(
         data.get('name')), end="")
 
-    response = requests.get(api_url + 'users/' + usr_id + '/todos')
+    response = requests.get(f'{api_url}/{usr_id}/todos')
     data = response.json()
 
     tasks = []
