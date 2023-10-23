@@ -24,7 +24,7 @@ def emp_info():
 
     for task in data:
         num_tasks += 1
-        if task.get('completed') is True:
+        if task.get('completed'):
             tasks.append(task.get('title'))
             num_com_tasks += 1
 
