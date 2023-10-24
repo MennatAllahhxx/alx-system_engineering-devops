@@ -7,7 +7,7 @@ import sys
 
 def emp_info():
     """for a given ID, returns information about progress"""
-    api_url = "https://jsonplaceholder.typicode.com/users"
+    api_url = 'https://jsonplaceholder.typicode.com/users'
     usr_id = sys.argv[1]
     response = requests.get(f'{api_url}/{usr_id}')
     data = response.json()
