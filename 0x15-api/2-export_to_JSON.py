@@ -19,7 +19,7 @@ def emp_info_json():
     for task in tasks:
         tasks_dict.append({'task': task.get('title'),
                            'completed': task.get('completed'),
-                           'username': task.get('username')})
+                           'username': usr_name})
 
     filename = f'{usr_id}.json'
 
