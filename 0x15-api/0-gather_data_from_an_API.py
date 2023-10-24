@@ -11,9 +11,7 @@ def emp_info():
     usr_id = sys.argv[1]
     response = requests.get(f'{api_url}/{usr_id}')
     data = response.json()
-
-    print("Employee {} is done with tasks".format(
-        data.get('name')), end="")
+    name = data.get('name')
 
     response = requests.get(f'{api_url}/{usr_id}/todos')
     data = response.json()
@@ -28,10 +26,11 @@ def emp_info():
             tasks.append(task.get('title'))
             num_com_tasks += 1
 
-    print("({}/{}):".format(num_com_tasks, num_tasks))
+    print(f'Employee {name} is done with tasks\
+({num_com_tasks}/{num_tasks}):')
 
     for task in tasks:
-        print("\t {}".format(task))
+        print('\t {}'.format(task))
 
 
 if __name__ == '__main__':
